@@ -100,7 +100,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15431083206202355}
   serializedVersion: 5
-  m_Mass: 0.5
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -126,7 +126,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15431083206202355}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: efc5a7407ecd4074084c0f105c71995f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

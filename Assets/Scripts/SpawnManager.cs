@@ -14,7 +14,8 @@ public class SpawnManager : MonoBehaviour
     public float OffsetSpawnXMin = -19;
     public float SpawnY = 65f;
     public float SpawnZ = 95f;
-    public float ForceSpawnObject = 1000f;
+    private float ImpulsoMaximo = 150f;
+    private float ImpulsoMinimo = 50f;
 
     void Start()
     {
@@ -42,12 +43,13 @@ public class SpawnManager : MonoBehaviour
     public void CrearObjetoSpawn()
     {
         int ObjetoRandom = Random.Range(0, 10);
+        float ImpulsoRandom = Random.Range(ImpulsoMinimo, ImpulsoMaximo);
 
         if (ObjetoRandom >= 0 && ObjetoRandom <= 5)//Gana el objeto positivo como spawn
         {
             GameObject Objeto = Instantiate(ObjetosSpawn[0], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
             Rigidbody rb = Objeto.GetComponent<Rigidbody>();
-            rb.AddForce(Vector3.down * ForceSpawnObject, ForceMode.Impulse);
+            rb.AddForce(Vector3.down * ImpulsoRandom, ForceMode.Impulse);
             Debug.Log("Se creo el objeto positivo" + Objeto.name);
 
         }
@@ -56,7 +58,7 @@ public class SpawnManager : MonoBehaviour
             ObjetoRandom = Random.Range(1, ObjetosSpawn.Length);
             GameObject Objeto = Instantiate(ObjetosSpawn[ObjetoRandom], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
             Rigidbody rb = Objeto.GetComponent<Rigidbody>();
-            rb.AddForce(Vector3.down * ForceSpawnObject, ForceMode.Impulse);
+            rb.AddForce(Vector3.down * ImpulsoRandom, ForceMode.Impulse);
             Debug.Log("Se creo el objeto negativo" + Objeto.name);
         }
         
