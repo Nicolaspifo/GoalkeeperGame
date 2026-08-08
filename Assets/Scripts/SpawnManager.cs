@@ -33,7 +33,7 @@ public class SpawnManager : MonoBehaviour
             {
                
                 CrearObjetoSpawn();
-                Debug.Log("Objetos en escena: " + (ObjetosSpawnEnEscenaPositivo.Length + ObjetosSpawnEnEscenaNegativo.Length));
+                //Debug.Log("Objetos en escena: " + (ObjetosSpawnEnEscenaPositivo.Length + ObjetosSpawnEnEscenaNegativo.Length));
             } 
             
             yield return new WaitForSeconds(TiempoEntreSpawns);
@@ -50,7 +50,7 @@ public class SpawnManager : MonoBehaviour
             GameObject Objeto = Instantiate(ObjetosSpawn[0], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
             Rigidbody rb = Objeto.GetComponent<Rigidbody>();
             rb.AddForce(Vector3.down * ImpulsoRandom, ForceMode.Impulse);
-            Debug.Log("Se creo el objeto positivo" + Objeto.name);
+            //Debug.Log("Se creo el objeto positivo" + Objeto.name);
 
         }
         else if(ObjetoRandom > 5 && ObjetoRandom < 10)//Gana el objeto negativo como spawn
@@ -59,10 +59,9 @@ public class SpawnManager : MonoBehaviour
             GameObject Objeto = Instantiate(ObjetosSpawn[ObjetoRandom], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
             Rigidbody rb = Objeto.GetComponent<Rigidbody>();
             rb.AddForce(Vector3.down * ImpulsoRandom, ForceMode.Impulse);
-            Debug.Log("Se creo el objeto negativo" + Objeto.name);
+            //Debug.Log("Se creo el objeto negativo" + Objeto.name);
         }
         
-        Debug.Log("Esta Fuera del rango en al crear el numero random");
     }
 
 }
