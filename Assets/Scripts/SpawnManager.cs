@@ -1,10 +1,9 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
     [Header("Spawn Objects")]
-    public GameObject ObjetoSpawn;
     public GameObject[] ObjetosSpawn;
 
 
@@ -15,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     public float OffsetSpawnXMin = -19;
     public float SpawnY = 65f;
     public float SpawnZ = 95f;
-    public float ForceSpawnObject = 10f;
+    public float ForceSpawnObject = 1000f;
 
     void Start()
     {
@@ -27,44 +26,41 @@ public class SpawnManager : MonoBehaviour
         
         while (true)
         {
-            GameObject[] ObjetosSpawnEnEscena = GameObject.FindGameObjectsWithTag("ObjetoSpawn");
-            if(ObjetosSpawnEnEscena.Length < CantidadObjetosSpawn)
+            GameObject[] ObjetosSpawnEnEscenaPositivo = GameObject.FindGameObjectsWithTag("ObjetoPositivo");
+            GameObject[] ObjetosSpawnEnEscenaNegativo = GameObject.FindGameObjectsWithTag("ObjetoNegativo");
+            if(ObjetosSpawnEnEscenaPositivo.Length + ObjetosSpawnEnEscenaNegativo.Length < CantidadObjetosSpawn)
             {
-                yield return new WaitForSeconds(TiempoEntreSpawns);
+               
                 CrearObjetoSpawn();
-            }
+                Debug.Log("Objetos en escena: " + (ObjetosSpawnEnEscenaPositivo.Length + ObjetosSpawnEnEscenaNegativo.Length));
+            } 
+            
+            yield return new WaitForSeconds(TiempoEntreSpawns);
         }
     }
 
     public void CrearObjetoSpawn()
     {
-        GameObject ObjetoSpawnPadre = Instantiate(ObjetoSpawn, new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
-        CrearObjetoHijoSpawn(ObjetoSpawnPadre);
-        Rigidbody rb = ObjetoSpawnPadre.GetComponentInChildren<Rigidbody>();
-        //rb.AddForce(Vector3.down * ForceSpawnObject);
-    }
-
-
-    public  GameObject CrearObjetoHijoSpawn(GameObject ObjetoSpawnPadre)
-    {
         int ObjetoRandom = Random.Range(0, 10);
 
         if (ObjetoRandom >= 0 && ObjetoRandom <= 5)//Gana el objeto positivo como spawn
         {
-            GameObject ObjetoHijo = Instantiate(ObjetosSpawn[0], ObjetoSpawnPadre.transform);
-            return ObjetoHijo;
+            GameObject Objeto = Instantiate(ObjetosSpawn[0], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
+            Rigidbody rb = Objeto.GetComponent<Rigidbody>();
+            rb.AddForce(Vector3.down * ForceSpawnObject, ForceMode.Impulse);
+            Debug.Log("Se creo el objeto positivo" + Objeto.name);
+
         }
         else if(ObjetoRandom > 5 && ObjetoRandom < 10)//Gana el objeto negativo como spawn
         {
             ObjetoRandom = Random.Range(1, ObjetosSpawn.Length);
-            GameObject ObjetoHijo = Instantiate(ObjetosSpawn[ObjetoRandom], ObjetoSpawnPadre.transform);
+            GameObject Objeto = Instantiate(ObjetosSpawn[ObjetoRandom], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
+            Rigidbody rb = Objeto.GetComponent<Rigidbody>();
+            rb.AddForce(Vector3.down * ForceSpawnObject, ForceMode.Impulse);
+            Debug.Log("Se creo el objeto negativo" + Objeto.name);
         }
         
         Debug.Log("Esta Fuera del rango en al crear el numero random");
-        return null;
-        
-        
-
     }
 
 }
