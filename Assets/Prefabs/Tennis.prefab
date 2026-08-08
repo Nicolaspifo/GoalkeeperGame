@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5863371968922648172}
   m_Layer: 0
   m_Name: Tennis
-  m_TagString: Untagged
+  m_TagString: ObjetoNegativo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

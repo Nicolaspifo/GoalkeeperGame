@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 603132676127786807}
   m_Layer: 0
   m_Name: Soccer
-  m_TagString: Untagged
+  m_TagString: ObjetoPositivo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
