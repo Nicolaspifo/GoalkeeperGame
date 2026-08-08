@@ -14,8 +14,8 @@ public class SpawnManager : MonoBehaviour
     public float OffsetSpawnXMin = -19;
     public float SpawnY = 65f;
     public float SpawnZ = 95f;
-    private float ImpulsoMaximo = 150f;
-    private float ImpulsoMinimo = 50f;
+    private float ImpulsoMaximo = 100f;
+    private float ImpulsoMinimo = 10f;
 
     void Start()
     {
