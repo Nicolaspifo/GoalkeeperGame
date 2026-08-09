@@ -42,25 +42,28 @@ public class SpawnManager : MonoBehaviour
 
     public void CrearObjetoSpawn()
     {
-        int ObjetoRandom = Random.Range(0, 10);
+        int NumeroRandom = Random.Range(0, 10);
         float ImpulsoRandom = Random.Range(ImpulsoMinimo, ImpulsoMaximo);
 
-        if (ObjetoRandom >= 0 && ObjetoRandom <= 5)//Gana el objeto positivo como spawn
+        if (NumeroRandom >= 0 && NumeroRandom <= 5)//Gana el objeto positivo como spawn
         {
             GameObject Objeto = Instantiate(ObjetosSpawn[0], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
             Rigidbody rb = Objeto.GetComponent<Rigidbody>();
             rb.AddForce(Vector3.down * ImpulsoRandom, ForceMode.Impulse);
             //Debug.Log("Se creo el objeto positivo" + Objeto.name);
+            Objeto.AddComponent<DetectarColision>();
 
         }
-        else if(ObjetoRandom > 5 && ObjetoRandom < 10)//Gana el objeto negativo como spawn
+        else if(NumeroRandom > 5 && NumeroRandom < 10)//Gana el objeto negativo como spawn
         {
-            ObjetoRandom = Random.Range(1, ObjetosSpawn.Length);
-            GameObject Objeto = Instantiate(ObjetosSpawn[ObjetoRandom], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
+            NumeroRandom = Random.Range(1, ObjetosSpawn.Length);
+            GameObject Objeto = Instantiate(ObjetosSpawn[NumeroRandom], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
             Rigidbody rb = Objeto.GetComponent<Rigidbody>();
             rb.AddForce(Vector3.down * ImpulsoRandom, ForceMode.Impulse);
             //Debug.Log("Se creo el objeto negativo" + Objeto.name);
+            Objeto.AddComponent<DetectarColision>();
         }
+        
         
     }
 

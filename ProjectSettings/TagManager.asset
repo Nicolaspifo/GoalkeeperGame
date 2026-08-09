@@ -9,6 +9,7 @@ TagManager:
   - ObjetoNegativo
   - ObjetoPositivo
   - ObjetoSpawn
+  - Limite
   layers:
   - Default
   - TransparentFX
