@@ -42,10 +42,10 @@ public class PuntuacionManager : MonoBehaviour
         {
             vida--;
             TextoVida.text = "Vidas: " + vida;
-        }
-        else 
-        { 
-            GameOver();
+            if (vida <= 0)
+            {
+                GameOver();
+            }
         }
     }
 
