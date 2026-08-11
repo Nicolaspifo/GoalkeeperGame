@@ -72,11 +72,11 @@ public class PuntuacionManager : MonoBehaviour
 
     private void Poder()
     {
-        if (puntuacion < 10)
+        if (poder < 10)
         {
             poder++;
             TextoPoder.text = "Poder: " + poder;
-            if (poder == 10) TextoPoder.color = Color.yellow;
-        }    
+        }
+        if (poder == 10) TextoPoder.color = Color.yellow;
     }
 }
