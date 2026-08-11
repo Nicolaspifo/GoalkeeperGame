@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     public TMP_Text textGiroscopio;
     public TMP_Text textAcelerometro;
+    private float velocidad = 100f;
     
     private void OnEnable()
     {
@@ -46,7 +47,8 @@ public class PlayerMove : MonoBehaviour
 
         if (Player.transform.position.x <= 21 && Player.transform.position.x >= -21)
         {
-            Player.transform.position = new Vector3(Player.transform.position.x + accel.x, Player.transform.position.y, Player.transform.position.z);
+            Player.transform.position = new Vector3(Player.transform.position.x + accel.x * velocidad * Time.deltaTime, 
+                Player.transform.position.y, Player.transform.position.z);
         }
         else if (Player.transform.position.x > 21)
         {
@@ -69,7 +71,8 @@ public class PlayerMove : MonoBehaviour
 
         if (Player.transform.position.x <= 21 && Player.transform.position.x >= -21)
         {
-            Player.transform.position = new Vector3(Player.transform.position.x + gyro.x, Player.transform.position.y, Player.transform.position.z);
+            Player.transform.position = new Vector3(Player.transform.position.x + gyro.x * velocidad * Time.deltaTime, 
+                Player.transform.position.y, Player.transform.position.z);
         }
         else if (Player.transform.position.x > 21)
         {

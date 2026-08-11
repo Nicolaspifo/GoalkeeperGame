@@ -42,10 +42,8 @@ public class DetectarColision : MonoBehaviour
                     break;
                 }
             case "Porteria" when ObjetoActual.tag == "ObjetoPositivo":
-                {
-                    
-                    ObjetoActual.tag = "ObjetoNegativo";
-                    ActualizarPuntuacion(ObjetoActual.tag);
+                {  
+                    ActualizarPuntuacion("ObjetoNegativo");
                     DestruirObjeto(ObjetoActual);
                     break;
                 }
@@ -68,9 +66,4 @@ public class DetectarColision : MonoBehaviour
     {
         puntuacionManager.GetComponent<PuntuacionManager>().ActualizarPuntuacion(objeto);
     }
-
-
-
-
-
 }
