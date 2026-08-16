@@ -6,7 +6,14 @@ public class PlayerMove : MonoBehaviour
 {
     public TMP_Text textGiroscopio;
     public TMP_Text textAcelerometro;
+
+    private GameObject Player;
+
     private float velocidad = 100f;
+
+
+
+    Animator anim;
     
     private void OnEnable()
     {
@@ -22,28 +29,39 @@ public class PlayerMove : MonoBehaviour
         
     }
 
+    private void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+
+        Player = GameObject.FindWithTag("Player");
+    }
+
     private void Update()
     {   
         if (Accelerometer.current == null) return; // evita el crash si no hay sensor
 
-        GameObject Player = GameObject.FindWithTag("Player");
+        
 
         if (Accelerometer.current != null)
         {
-            MovimientoAcelerometro(Player);
+            MovimientoAcelerometro();
         }
         else
         {
-            MovimientoGiroscopio(Player);
+            MovimientoGiroscopio();
         }
 
         
     }
 
-    private void MovimientoAcelerometro(GameObject Player)
+    private void MovimientoAcelerometro()
     {
         Vector3 accel = Accelerometer.current.acceleration.ReadValue();
         textAcelerometro.text = $"Acelerómetro: {accel}";
+
+        //Control de acelerometro para animacion
+        if (accel.x == 0) anim.SetBool("semueve", false);
+        else anim.SetBool("semueve", true);
 
         if (Player.transform.position.x <= 21 && Player.transform.position.x >= -21)
         {
@@ -64,7 +82,7 @@ public class PlayerMove : MonoBehaviour
         
     }
 
-    private void MovimientoGiroscopio(GameObject Player)
+    private void MovimientoGiroscopio()
     {
         Vector3 gyro = Giroscopio.current.angularVelocity.ReadValue();
         textGiroscopio.text = $"Giroscopio: {gyro}";
