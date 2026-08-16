@@ -60,7 +60,7 @@ public class PlayerMove : MonoBehaviour
         textAcelerometro.text = $"Acelerómetro: {accel}";
 
         //Control de acelerometro para animacion
-        if (accel.x == 0) anim.SetBool("semueve", false);
+        if (accel.x >= -0.1f && accel.x <= 0.1f) anim.SetBool("semueve", false);
         else anim.SetBool("semueve", true);
 
         if (Player.transform.position.x <= 21 && Player.transform.position.x >= -21)
@@ -101,6 +101,36 @@ public class PlayerMove : MonoBehaviour
         {
             Player.transform.position = new Vector3(-21, Player.transform.position.y, Player.transform.position.z);
 
+        }
+    }
+
+    private void MovimientoAcelSaltar()
+    {
+        Vector3 accel = Accelerometer.current.acceleration.ReadValue();
+        textAcelerometro.text = $"Acelerómetro: {accel}";
+        //Control de acelerometro para animacion
+        if (accel.x >= -0.1f && accel.x <= 0.1f) anim.SetBool("semueve", false);
+        else anim.SetBool("semueve", true);
+        if (accel.y >= 0.5f)
+        {
+            anim.SetBool("salta", true);
+        }
+        else
+        {
+            anim.SetBool("salta", false);
+        }
+        if (Player.transform.position.x <= 21 && Player.transform.position.x >= -21)
+        {
+            Player.transform.position = new Vector3(Player.transform.position.x + accel.x * velocidad * Time.deltaTime,
+                Player.transform.position.y, Player.transform.position.z);
+        }
+        else if (Player.transform.position.x > 21)
+        {
+            Player.transform.position = new Vector3(21, Player.transform.position.y, Player.transform.position.z);
+        }
+        else if (Player.transform.position.x < -21)
+        {
+            Player.transform.position = new Vector3(-21, Player.transform.position.y, Player.transform.position.z);
         }
     }
 
