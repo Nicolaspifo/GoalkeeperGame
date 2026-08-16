@@ -29,7 +29,8 @@ public class SpawnManager : MonoBehaviour
         {
             GameObject[] ObjetosSpawnEnEscenaPositivo = GameObject.FindGameObjectsWithTag("ObjetoPositivo");
             GameObject[] ObjetosSpawnEnEscenaNegativo = GameObject.FindGameObjectsWithTag("ObjetoNegativo");
-            if(ObjetosSpawnEnEscenaPositivo.Length + ObjetosSpawnEnEscenaNegativo.Length < CantidadObjetosSpawn)
+            GameObject[] ObjetosSpawnEnEscenaPoder = GameObject.FindGameObjectsWithTag("ObjetoPoder");
+            if(ObjetosSpawnEnEscenaPositivo.Length + ObjetosSpawnEnEscenaNegativo.Length + ObjetosSpawnEnEscenaPoder.Length < CantidadObjetosSpawn)
             {
                
                 CrearObjetoSpawn();
@@ -47,24 +48,28 @@ public class SpawnManager : MonoBehaviour
 
         if (NumeroRandom >= 0 && NumeroRandom <= 5)//Gana el objeto positivo como spawn
         {
-            GameObject Objeto = Instantiate(ObjetosSpawn[0], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
+            GameObject Objeto;
+            if (NumeroRandom == 5)
+            {
+                Objeto = Instantiate(ObjetosSpawn[1], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);      
+            }
+            else
+            {
+                Objeto = Instantiate(ObjetosSpawn[0], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
+            }
             Rigidbody rb = Objeto.GetComponent<Rigidbody>();
             rb.AddForce(Vector3.down * ImpulsoRandom, ForceMode.Impulse);
             //Debug.Log("Se creo el objeto positivo" + Objeto.name);
             Objeto.AddComponent<DetectarColision>();
-
         }
         else if(NumeroRandom > 5 && NumeroRandom < 10)//Gana el objeto negativo como spawn
         {
-            NumeroRandom = Random.Range(1, ObjetosSpawn.Length);
+            NumeroRandom = Random.Range(2, ObjetosSpawn.Length);
             GameObject Objeto = Instantiate(ObjetosSpawn[NumeroRandom], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);
             Rigidbody rb = Objeto.GetComponent<Rigidbody>();
             rb.AddForce(Vector3.down * ImpulsoRandom, ForceMode.Impulse);
             //Debug.Log("Se creo el objeto negativo" + Objeto.name);
             Objeto.AddComponent<DetectarColision>();
-        }
-        
-        
+        } 
     }
-
 }

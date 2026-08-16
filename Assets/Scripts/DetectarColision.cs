@@ -24,7 +24,7 @@ public class DetectarColision : MonoBehaviour
                     DestruirObjeto(ObjetoActual);
                     break;
                 }
-            case "Limite" when ObjetoActual.tag == "ObjetoNegativo":
+            case "Limite" when ObjetoActual.tag == "ObjetoNegativo" || ObjetoActual.tag == "ObjetoPoder":
                 {
                     DestruirObjeto(ObjetoActual);
                     break;
@@ -36,7 +36,13 @@ public class DetectarColision : MonoBehaviour
                     DestruirObjeto(ObjetoActual);
                     break;
                 }
-            case "Porteria" when ObjetoActual.tag == "ObjetoNegativo":
+            case "Player" when ObjetoActual.tag == "ObjetoPoder":
+                {
+                    ActualizarPuntuacion(ObjetoActual.tag);
+                    DestruirObjeto(ObjetoActual);
+                    break;
+                }
+            case "Porteria" when ObjetoActual.tag == "ObjetoNegativo" || ObjetoActual.tag == "ObjetoPoder":
                 {
                     DestruirObjeto(ObjetoActual);
                     break;

@@ -7,10 +7,10 @@ public class PuntuacionManager : MonoBehaviour
     private TMP_Text TextoVida;
     private TMP_Text TextoPoder;
 
-
     private int puntuacion = 0;
     private int vida = 5;
     private int poder = 0;
+    private int PoderNecesario = 1;
 
 
 
@@ -30,7 +30,11 @@ public class PuntuacionManager : MonoBehaviour
         {
             PuntuacionPositiva();
         }
-        else if(TagObjeto == "ObjetoNegativo")
+        else if(TagObjeto == "ObjetoPoder")
+        {
+            Poder();
+        }
+        else
         {
             PuntuacionNegativa();
         }
@@ -60,7 +64,6 @@ public class PuntuacionManager : MonoBehaviour
                 Debug.Log("Pasaste Nivel");
                 Time.timeScale = 0;
             }
-            Poder();
         }
     }
 
@@ -72,11 +75,22 @@ public class PuntuacionManager : MonoBehaviour
 
     private void Poder()
     {
-        if (poder < 10)
+        if (poder < PoderNecesario)
         {
             poder++;
             TextoPoder.text = "Poder: " + poder;
         }
-        if (poder == 10) TextoPoder.color = Color.yellow;
+        if (poder == PoderNecesario)
+        {
+            TextoPoder.color = Color.yellow;
+            GameObject CanvasUI = GameObject.Find("CanvasUI");
+            foreach (Transform hijo in CanvasUI.transform)
+            {
+                if (hijo.name == "BotonPoder")
+                {
+                    hijo.gameObject.SetActive(true);
+                }
+            }
+        }
     }
 }
