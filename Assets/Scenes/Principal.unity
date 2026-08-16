@@ -2412,6 +2412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854a2a17aaacc3349be52e070d966cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuntuacionManager
+  poder: 0
 --- !u!114 &1097792152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2437,7 +2438,7 @@ GameObject:
   - component: {fileID: 1107557693}
   - component: {fileID: 1107557692}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: ReferenceObjetos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

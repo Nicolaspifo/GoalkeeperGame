@@ -9,7 +9,7 @@ public class PuntuacionManager : MonoBehaviour
 
     private int puntuacion = 0;
     private int vida = 5;
-    private int poder = 0;
+    public int poder = 0;
     private int PoderNecesario = 1;
 
 
@@ -92,5 +92,12 @@ public class PuntuacionManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ResetearPoder()
+    {
+        poder = 0;
+        TextoPoder.text = "Poder: " + poder;
+        TextoPoder.color = Color.black;
     }
 }

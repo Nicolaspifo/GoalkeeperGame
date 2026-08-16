@@ -49,7 +49,7 @@ public class SpawnManager : MonoBehaviour
         if (NumeroRandom >= 0 && NumeroRandom <= 5)//Gana el objeto positivo como spawn
         {
             GameObject Objeto;
-            if (NumeroRandom == 5)
+            if (NumeroRandom >= 4)
             {
                 Objeto = Instantiate(ObjetosSpawn[1], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);      
             }
