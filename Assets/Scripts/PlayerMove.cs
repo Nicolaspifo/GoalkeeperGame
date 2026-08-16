@@ -75,7 +75,7 @@ public class PlayerMove : MonoBehaviour
                 Player.transform.position.y, Player.transform.position.z);
 
             //jump movement
-            if (accel.y >= 0.1f && Player.transform.position.y <= -40.05f)
+            if (accel.y >= 0.05f && Player.transform.position.y <= -40.05f)
             {
                 anim.SetBool("salta", true);
 
