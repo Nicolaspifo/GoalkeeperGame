@@ -41,22 +41,16 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-    private void Update()
-    {   
-        if (Accelerometer.current == null) return; // evita el crash si no hay sensor
-
-        
-
+    private void FixedUpdate()
+    {
         if (Accelerometer.current != null)
         {
             MovimientoAcelerometro();
         }
-        else
+        else if (Giroscopio.current != null)
         {
             MovimientoGiroscopio();
         }
-
-        
     }
 
     private void MovimientoAcelerometro()
@@ -64,45 +58,47 @@ public class PlayerMove : MonoBehaviour
         Vector3 accel = Accelerometer.current.acceleration.ReadValue();
         textAcelerometro.text = $"Acelerómetro: {accel}";
 
-        //Control de acelerometro para animacion
-        if (accel.x >= -0.1f && accel.x <= 0.1f) anim.SetBool("semueve", false);
-        else anim.SetBool("semueve", true);
+        // Control de acelerómetro para animación
+        if (accel.x >= -0.1f && accel.x <= 0.1f)
+            anim.SetBool("semueve", false);
+        else
+            anim.SetBool("semueve", true);
 
-        if (Player.transform.position.x <= 21 && Player.transform.position.x >= -21)
+
+        // Posición actual del Rigidbody
+        Vector3 posicion = rb.position;
+
+
+        // Movimiento horizontal
+        float nuevoX = posicion.x + accel.x * velocidad * Time.fixedDeltaTime;
+
+        // Limitar el movimiento entre -21 y 21
+        nuevoX = Mathf.Clamp(nuevoX, -21f, 21f);
+
+
+        // Mover utilizando Rigidbody
+        rb.MovePosition(new Vector3(
+            nuevoX,
+            posicion.y,
+            posicion.z
+        ));
+
+
+        // Salto
+        if (accel.y >= 0.05f && rb.position.y <= -40.05f)
         {
-            //Horizontal movement
-            Player.transform.position = new Vector3(Player.transform.position.x + accel.x * velocidad * Time.deltaTime, 
-                Player.transform.position.y, Player.transform.position.z);
+            anim.SetBool("salta", true);
 
-            //jump movement
-            if (accel.y >= 0.05f && Player.transform.position.y <= -40.05f)
-            {
-                anim.SetBool("salta", true);
-
-                rb.linearVelocity = new Vector3(
-                    rb.linearVelocity.x,
-                    15f,
-                    rb.linearVelocity.z
-                );
-            }
-            else
-            {
-                anim.SetBool("salta", false);
-            }
-
+            rb.linearVelocity = new Vector3(
+                rb.linearVelocity.x,
+                15f,
+                rb.linearVelocity.z
+            );
         }
-        else if (Player.transform.position.x > 21)
+        else
         {
-            Player.transform.position = new Vector3(21, Player.transform.position.y, Player.transform.position.z);
-
+            anim.SetBool("salta", false);
         }
-        else if (Player.transform.position.x < -21)
-        {
-            Player.transform.position = new Vector3(-21, Player.transform.position.y, Player.transform.position.z);
-
-        }
-
-        
     }
 
     private void MovimientoGiroscopio()
