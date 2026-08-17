@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] ObjetosSpawn;
 
 
-    [Header("Spawn Settings")]
+    [Header("Spawn object Settings")]
     public int CantidadObjetosSpawn = 5;
     public float TiempoEntreSpawns = 2f;
     public float OffsetSpawnXMax = 19;
@@ -17,9 +17,37 @@ public class SpawnManager : MonoBehaviour
     private float ImpulsoMaximo = 100f;
     private float ImpulsoMinimo = 10f;
 
+
+    [Header("Spawn Obstacles")]
+
+ 
+    GameObject ReferencesSpawnObstacles;
+
+    public GameObject[] SpawnObstacles;
+    public int CantidadobstaculosSpawn = 2;
+    public float TiempoEntreSpawnsObstaculos = 3f;
+    public float TiempoDestruccionObstaculos = 15f;
+    public float OffsetSpawnXMaxObstacles;
+    public float OffsetSpawnXMinObstacles;
+    public float SpawnYObstacles;
+    public float SpawnZObstacles;
+
+    void Awake()
+    {
+        ReferencesSpawnObstacles = GameObject.Find("ReferenceObstacles");
+        OffsetSpawnXMaxObstacles = ReferencesSpawnObstacles.GetComponent<Transform>().position.x + ReferencesSpawnObstacles.GetComponent<Transform>().localScale.x / 2;
+        OffsetSpawnXMinObstacles = ReferencesSpawnObstacles.GetComponent<Transform>().position.x - ReferencesSpawnObstacles.GetComponent<Transform>().localScale.x / 2;
+        SpawnYObstacles = ReferencesSpawnObstacles.GetComponent<Transform>().position.y + ReferencesSpawnObstacles.GetComponent<Transform>().localScale.y / 2;
+        SpawnZObstacles = ReferencesSpawnObstacles.GetComponent<Transform>().position.z + ReferencesSpawnObstacles.GetComponent<Transform>().localScale.z / 2;
+
+    }
+
     void Start()
     {
         StartCoroutine(BucleCreacionObjetos());
+        StartCoroutine(BucleCreacionObstaculos());
+
+
     }
 
     public IEnumerator BucleCreacionObjetos()
@@ -41,6 +69,20 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public IEnumerator BucleCreacionObstaculos()
+    {
+        while (true)
+        {
+            GameObject[] ObstaculosSpawnEnEscena = GameObject.FindGameObjectsWithTag("Obstaculo");
+            if (ObstaculosSpawnEnEscena.Length < CantidadobstaculosSpawn)
+            {
+                CrearObstaculoSpawn();
+                //Debug.Log("Obstaculos en escena: " + ObstaculosSpawnEnEscena.Length);
+            }
+            yield return new WaitForSeconds(TiempoEntreSpawnsObstaculos);
+        }
+    }
+
     public void CrearObjetoSpawn()
     {
         int NumeroRandom = Random.Range(0, 10);
@@ -49,7 +91,7 @@ public class SpawnManager : MonoBehaviour
         if (NumeroRandom >= 0 && NumeroRandom <= 5)//Gana el objeto positivo como spawn
         {
             GameObject Objeto;
-            if (NumeroRandom >= 4)
+            if (NumeroRandom == 5)
             {
                 Objeto = Instantiate(ObjetosSpawn[1], new Vector3(Random.Range(OffsetSpawnXMin, OffsetSpawnXMax), SpawnY, SpawnZ), Quaternion.identity);      
             }
@@ -71,5 +113,22 @@ public class SpawnManager : MonoBehaviour
             //Debug.Log("Se creo el objeto negativo" + Objeto.name);
             Objeto.AddComponent<DetectarColision>();
         } 
+    }
+
+    public void CrearObstaculoSpawn()
+    {
+        GameObject Obstaculo;
+        Obstaculo = Instantiate(SpawnObstacles[Random.Range(0, SpawnObstacles.Length)], 
+            new Vector3(Random.Range(OffsetSpawnXMinObstacles, OffsetSpawnXMaxObstacles), 
+            SpawnYObstacles, SpawnZObstacles), Quaternion.identity);
+
+        Debug.Log("Se creo el obstaculo" + Obstaculo.name);
+        StartCoroutine(DestruirObjeto(Obstaculo));
+    }
+
+    public IEnumerator DestruirObjeto(GameObject Obstaculo)
+    {
+        yield return new WaitForSeconds(TiempoDestruccionObstaculos);
+        Destroy(Obstaculo);
     }
 }

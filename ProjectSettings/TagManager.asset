@@ -12,6 +12,7 @@ TagManager:
   - Limite
   - SpawnPlayer
   - ObjetoPoder
+  - Obstaculo
   layers:
   - Default
   - TransparentFX
