@@ -10,6 +10,9 @@ TagManager:
   - ObjetoPositivo
   - ObjetoSpawn
   - Limite
+  - SpawnPlayer
+  - ObjetoPoder
+  - Obstaculo
   layers:
   - Default
   - TransparentFX

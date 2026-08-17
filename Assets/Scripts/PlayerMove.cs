@@ -6,7 +6,15 @@ public class PlayerMove : MonoBehaviour
 {
     public TMP_Text textGiroscopio;
     public TMP_Text textAcelerometro;
+
+    private GameObject Player;
+
     private float velocidad = 100f;
+    private Rigidbody rb;
+
+
+
+    Animator anim;
     
     private void OnEnable()
     {
@@ -22,49 +30,78 @@ public class PlayerMove : MonoBehaviour
         
     }
 
-    private void Update()
-    {   
-        if (Accelerometer.current == null) return; // evita el crash si no hay sensor
+    private void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
 
-        GameObject Player = GameObject.FindWithTag("Player");
+        Player = GameObject.FindWithTag("Player");
 
-        if (Accelerometer.current != null)
-        {
-            MovimientoAcelerometro(Player);
-        }
-        else
-        {
-            MovimientoGiroscopio(Player);
-        }
+        rb = GetComponentInChildren<Rigidbody>();
 
-        
+
     }
 
-    private void MovimientoAcelerometro(GameObject Player)
+    private void FixedUpdate()
+    {
+        if (Accelerometer.current != null)
+        {
+            MovimientoAcelerometro();
+        }
+        else if (Giroscopio.current != null)
+        {
+            MovimientoGiroscopio();
+        }
+    }
+
+    private void MovimientoAcelerometro()
     {
         Vector3 accel = Accelerometer.current.acceleration.ReadValue();
         textAcelerometro.text = $"Acelerómetro: {accel}";
 
-        if (Player.transform.position.x <= 21 && Player.transform.position.x >= -21)
-        {
-            Player.transform.position = new Vector3(Player.transform.position.x + accel.x * velocidad * Time.deltaTime, 
-                Player.transform.position.y, Player.transform.position.z);
-        }
-        else if (Player.transform.position.x > 21)
-        {
-            Player.transform.position = new Vector3(21, Player.transform.position.y, Player.transform.position.z);
+        // Control de acelerómetro para animación
+        if (accel.x >= -0.1f && accel.x <= 0.1f)
+            anim.SetBool("semueve", false);
+        else
+            anim.SetBool("semueve", true);
 
-        }
-        else if (Player.transform.position.x < -21)
+
+        // Posición actual del Rigidbody
+        Vector3 posicion = rb.position;
+
+
+        // Movimiento horizontal
+        float nuevoX = posicion.x + accel.x * velocidad * Time.fixedDeltaTime;
+
+        // Limitar el movimiento entre -21 y 21
+        nuevoX = Mathf.Clamp(nuevoX, -21f, 21f);
+
+
+        // Mover utilizando Rigidbody
+        rb.MovePosition(new Vector3(
+            nuevoX,
+            posicion.y,
+            posicion.z
+        ));
+
+
+        // Salto
+        if (accel.y >= 0.05f && rb.position.y <= -40.05f)
         {
-            Player.transform.position = new Vector3(-21, Player.transform.position.y, Player.transform.position.z);
+            anim.SetBool("salta", true);
 
+            rb.linearVelocity = new Vector3(
+                rb.linearVelocity.x,
+                15f,
+                rb.linearVelocity.z
+            );
         }
-
-        
+        else
+        {
+            anim.SetBool("salta", false);
+        }
     }
 
-    private void MovimientoGiroscopio(GameObject Player)
+    private void MovimientoGiroscopio()
     {
         Vector3 gyro = Giroscopio.current.angularVelocity.ReadValue();
         textGiroscopio.text = $"Giroscopio: {gyro}";
@@ -84,6 +121,11 @@ public class PlayerMove : MonoBehaviour
             Player.transform.position = new Vector3(-21, Player.transform.position.y, Player.transform.position.z);
 
         }
+    }
+
+    private void MovimientoAcelSaltar()
+    {
+        
     }
 
 }
