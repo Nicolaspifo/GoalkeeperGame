@@ -30,7 +30,7 @@ public class PlayerMove : MonoBehaviour
         
     }
 
-    private void Awake()
+    private void Start()
     {
         anim = GetComponentInChildren<Animator>();
 
@@ -40,6 +40,7 @@ public class PlayerMove : MonoBehaviour
 
 
     }
+
 
     private void FixedUpdate()
     {
