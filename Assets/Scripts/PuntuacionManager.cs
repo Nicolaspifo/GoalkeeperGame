@@ -38,14 +38,25 @@ public class PuntuacionManager : MonoBehaviour
 
         //inicilizar las variables del juego
         puntuacion = 0;
-        puntuacionMaxima = PlayerData.PuntuacionMaxima;
+        puntuacionMaxima = PlayerData.PuntuacionActual;
         vida = PlayerData.Vidas;
         poder = 0;
         PoderNecesario = PlayerData.PoderMaximo;
         TextoPuntuacion.text = "" + puntuacion;
 
         // Crear corazones en la UI según la vida inicial
-        CrarCorazones();
+        CrearCorazones();
+    }
+
+    public void actualizarDatosNextLevel()
+    {
+        puntuacion = 0;
+        puntuacionMaxima = PlayerData.PuntuacionActual;
+        vida = PlayerData.Vidas;
+        poder = 0;
+        PoderNecesario = PlayerData.PoderMaximo;
+        TextoPuntuacion.text = "" + puntuacion;
+        CrearCorazones();
     }
 
     private void Start()
@@ -53,8 +64,13 @@ public class PuntuacionManager : MonoBehaviour
         ResetearPoder();
     }
 
-    private void CrarCorazones()
+    private void CrearCorazones()
     {
+        // Destruir todos los corazones existentes
+        foreach (Transform corazon in ContenedorCorazones.transform)
+        {
+            Destroy(corazon.gameObject);
+        }
         for (int i = 0; i < vida; i++)
         {
             Instantiate(CorazonPrefab, ContenedorCorazones.transform);
@@ -109,16 +125,27 @@ public class PuntuacionManager : MonoBehaviour
             TextoPuntuacion.text = "" + puntuacion;
             if (puntuacion == puntuacionMaxima)
             {
+
                 Debug.Log("Pasaste Nivel");
                 Time.timeScale = 0;
+                GameObject CanvasUI = GameObject.Find("CanvasUI");
+                foreach (Transform hijo in CanvasUI.transform)
+                {
+                    if (hijo.name == "SiguienteNivel")
+                    {
+                        hijo.gameObject.SetActive(true);
+                    }
+                }
             }
         }
     }
 
     private void GameOver()
     {
+        
         Debug.Log("Game Over");
         Time.timeScale = 0;
+
     }
 
     private void Poder()

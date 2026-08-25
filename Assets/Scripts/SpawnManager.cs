@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [Header("Player Data")]
+    public PlayerData playerData;
+
+
     [Header("Spawn Objects")]
     public GameObject[] ObjetosSpawn;
 
@@ -14,8 +18,8 @@ public class SpawnManager : MonoBehaviour
     public float OffsetSpawnXMin = -19;
     public float SpawnY = 65f;
     public float SpawnZ = 95f;
-    private float ImpulsoMaximo = 100f;
-    private float ImpulsoMinimo = 10f;
+    private float ImpulsoMaximo;
+    private float ImpulsoMinimo;
 
 
     [Header("Spawn Obstacles")]
@@ -40,6 +44,9 @@ public class SpawnManager : MonoBehaviour
         SpawnYObstacles = ReferencesSpawnObstacles.GetComponent<Transform>().position.y + ReferencesSpawnObstacles.GetComponent<Transform>().localScale.y / 2;
         SpawnZObstacles = ReferencesSpawnObstacles.GetComponent<Transform>().position.z + ReferencesSpawnObstacles.GetComponent<Transform>().localScale.z / 2;
 
+        ImpulsoMaximo = playerData.Impulso[1];
+        ImpulsoMinimo = playerData.Impulso[0];
+
     }
 
     void Start()
@@ -48,6 +55,12 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(BucleCreacionObstaculos());
 
 
+    }
+
+    public void actualizarImpulso()
+    {
+        ImpulsoMaximo = playerData.Impulso[1];
+        ImpulsoMinimo = playerData.Impulso[0];
     }
 
     public IEnumerator BucleCreacionObjetos()
