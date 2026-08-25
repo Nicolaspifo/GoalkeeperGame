@@ -7,5 +7,6 @@ public class GameManager : MonoBehaviour
         //Limita el juego a 60 FPS
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
+
     }
 }

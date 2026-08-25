@@ -4,30 +4,51 @@ using UnityEngine;
 
 public class PuntuacionManager : MonoBehaviour
 {
+    [Header("playerData")]
+    public PlayerData PlayerData;
+
+    public GameObject CorazonPrefab;
+    public GameObject PoderPrefab;
+
     private TMP_Text TextoPuntuacion;
     private TMP_Text TextoVida;
     private GameObject ContenedorCorazones;
     private TMP_Text TextoPoder;
     private GameObject BarraPoder;
 
-    private int puntuacion = 0;
-    private int vida = 5;
-    public int poder = 0;
-    private int PoderNecesario = 1;
+    private int puntuacion;
+    private int puntuacionMaxima;
+    private int vida;
+    private int poder;
+    private int PoderNecesario;
 
 
 
     private void Awake()
     {
+        // Inicializar referencias a los objetos de la UI
         TextoPuntuacion = GameObject.Find("TextoPuntuacion").GetComponent<TMP_Text>();
-        //TextoVida = GameObject.Find("TextoVida").GetComponent<TMP_Text>();
-        //TextoPoder = GameObject.Find("TextoPoder").GetComponent<TMP_Text>();
         BarraPoder = GameObject.Find("Power");
         ContenedorCorazones = GameObject.Find("Health");
 
+        //inicilizar las variables del juego
+        puntuacion = 0;
+        puntuacionMaxima = PlayerData.PuntuacionMaxima;
+        vida = PlayerData.Vidas;
+        poder = 0;
+        PoderNecesario = PlayerData.PoderMaximo;
         TextoPuntuacion.text = "" + puntuacion;
-        //TextoVida.text = "Vidas: " + vida;
-        //TextoPoder.text = "Poder: " + poder;
+
+        // Crear corazones en la UI según la vida inicial
+        CrarCorazones();
+    }
+
+    private void CrarCorazones()
+    {
+        for (int i = 0; i < vida; i++)
+        {
+            Instantiate(CorazonPrefab, ContenedorCorazones.transform);
+        }
     }
     public void ActualizarPuntuacion(string TagObjeto )
     {
@@ -66,7 +87,6 @@ public class PuntuacionManager : MonoBehaviour
                     return;
                 }
             }
-            //TextoVida.text = "Vidas: " + vida;
             
         }
     }
@@ -77,7 +97,7 @@ public class PuntuacionManager : MonoBehaviour
         {
             puntuacion++;
             TextoPuntuacion.text = "" + puntuacion;
-            if (puntuacion == 20)
+            if (puntuacion == puntuacionMaxima)
             {
                 Debug.Log("Pasaste Nivel");
                 Time.timeScale = 0;
@@ -96,7 +116,6 @@ public class PuntuacionManager : MonoBehaviour
         if (poder < PoderNecesario)
         {
             poder++;
-            TextoPoder.text = "Poder: " + poder;
         }
         if (poder == PoderNecesario)
         {
@@ -115,7 +134,5 @@ public class PuntuacionManager : MonoBehaviour
     public void ResetearPoder()
     {
         poder = 0;
-        //TextoPoder.text = "Poder: " + poder;
-        //TextoPoder.color = Color.black;
     }
 }
