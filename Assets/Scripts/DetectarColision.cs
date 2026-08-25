@@ -19,7 +19,7 @@ public class DetectarColision : MonoBehaviour
         {
             case "Limite" when ObjetoActual.tag == "ObjetoPositivo":
                 {
-                    
+                    AudioManager.Instance.PlayCatchCorrect();
                     ActualizarPuntuacion(ObjetoActual.tag);
                     DestruirObjeto(ObjetoActual);
                     break;
@@ -31,13 +31,14 @@ public class DetectarColision : MonoBehaviour
                 }
             case "Player" when ObjetoActual.tag == "ObjetoNegativo":
                 {
-                    
+                    AudioManager.Instance.PlayCatchWrong();
                     ActualizarPuntuacion(ObjetoActual.tag);
                     DestruirObjeto(ObjetoActual);
                     break;
                 }
             case "Player" when ObjetoActual.tag == "ObjetoPoder":
                 {
+                    AudioManager.Instance.PlayPowerUp();
                     ActualizarPuntuacion(ObjetoActual.tag);
                     DestruirObjeto(ObjetoActual);
                     break;
@@ -49,6 +50,7 @@ public class DetectarColision : MonoBehaviour
                 }
             case "Porteria" when ObjetoActual.tag == "ObjetoPositivo":
                 {  
+                    AudioManager.Instance.PlayGoalScored();
                     ActualizarPuntuacion("ObjetoNegativo");
                     DestruirObjeto(ObjetoActual);
                     break;
