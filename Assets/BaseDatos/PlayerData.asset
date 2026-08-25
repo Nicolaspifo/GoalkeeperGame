@@ -13,3 +13,22 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   selectedCharacterId: 1
+  VidasBase: 3
+  VidasIncremento: 1
+  VidasMaximas: 10
+  PuntuacionBase: 10
+  PuntuacionIncremento: 10
+  PuntuacionMaxima: 400
+  PoderBase: 3
+  PoderIncremento: 1
+  PoderMaximoTope: 20
+  ImpulsoMinBase: 40
+  ImpulsoMaxBase: 60
+  ImpulsoIncremento: 5
+  ImpulsoTope: 400
+  Vidas: 3
+  PuntuacionActual: 20
+  PoderMaximo: 3
+  Impulso:
+  - 40
+  - 150

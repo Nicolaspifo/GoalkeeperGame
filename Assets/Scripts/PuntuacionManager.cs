@@ -1,32 +1,90 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using UIImage = UnityEngine.UI.Image;
 
 public class PuntuacionManager : MonoBehaviour
 {
+    [Header("playerData")]
+    public PlayerData PlayerData;
+
+    public GameObject CorazonPrefab;
     private TMP_Text TextoPuntuacion;
     private TMP_Text TextoVida;
+    private GameObject ContenedorCorazones;
     private TMP_Text TextoPoder;
+    private GameObject BarraPoder;
+    private UIImage ImagenBarraPoder;
 
-    private int puntuacion = 0;
-    private int vida = 5;
-    public int poder = 0;
-    private int PoderNecesario = 1;
+    private int puntuacion;
+    private int puntuacionMaxima;
+    private int vida;
+    private int poder;
+    private int PoderNecesario;
 
 
 
     private void Awake()
     {
+        // Inicializar referencias a los objetos de la UI
         TextoPuntuacion = GameObject.Find("TextoPuntuacion").GetComponent<TMP_Text>();
-        TextoVida = GameObject.Find("TextoVida").GetComponent<TMP_Text>();
-        TextoPoder = GameObject.Find("TextoPoder").GetComponent<TMP_Text>();
+        BarraPoder = GameObject.Find("BarraPoder");
+        Transform parent = BarraPoder.transform;
+        ImagenBarraPoder = parent.GetChild(0).GetComponent<UIImage>();
+        ContenedorCorazones = GameObject.Find("Health");
 
+        //inicilizar las variables del juego
+        puntuacion = 0;
+        puntuacionMaxima = PlayerData.PuntuacionActual;
+        vida = PlayerData.Vidas;
+        poder = 0;
+        PoderNecesario = PlayerData.PoderMaximo;
         TextoPuntuacion.text = "" + puntuacion;
-        TextoVida.text = "Vidas: " + vida;
-        TextoPoder.text = "Poder: " + poder;
+
+        // Crear corazones en la UI según la vida inicial
+        CrearCorazones();
+    }
+
+    public void actualizarDatosNextLevel()
+    {
+        puntuacion = 0;
+        puntuacionMaxima = PlayerData.PuntuacionActual;
+        vida = PlayerData.Vidas;
+        PoderNecesario = PlayerData.PoderMaximo;
+        TextoPuntuacion.text = "" + puntuacion;
+        CrearCorazones();
+        ResetearPoder();
+    }
+
+    public void ReiniciarNivel(GameObject Boton)
+    {
+        actualizarDatosNextLevel();
+        Boton.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    private void Start()
+    {
+        ResetearPoder();
+    }
+
+    private void CrearCorazones()
+    {
+        // Destruir todos los corazones existentes
+        foreach (Transform corazon in ContenedorCorazones.transform)
+        {
+            Destroy(corazon.gameObject);
+        }
+        for (int i = 0; i < vida; i++)
+        {
+            Instantiate(CorazonPrefab, ContenedorCorazones.transform);
+        }
     }
     public void ActualizarPuntuacion(string TagObjeto )
     {
-        if(TagObjeto == "ObjetoPositivo")
+        if (TagObjeto == "ObjetoPositivo")
         {
             PuntuacionPositiva();
         }
@@ -42,14 +100,26 @@ public class PuntuacionManager : MonoBehaviour
 
     private void PuntuacionNegativa()
     {
+        Transform parent = ContenedorCorazones.transform;
         if (vida > 0)
         {
             vida--;
-            TextoVida.text = "Vidas: " + vida;
             if (vida <= 0)
             {
                 GameOver();
             }
+            for (int i = parent.childCount - 1; i >= 0; i--)
+            {
+                Transform child = parent.GetChild(i);
+                Transform corazon = child.Find("Image");
+
+                if (corazon != null && corazon.gameObject.activeSelf)
+                {
+                    corazon.gameObject.SetActive(false);
+                    return;
+                }
+            }
+            
         }
     }
 
@@ -59,18 +129,37 @@ public class PuntuacionManager : MonoBehaviour
         {
             puntuacion++;
             TextoPuntuacion.text = "" + puntuacion;
-            if (puntuacion == 20)
+            if (puntuacion == puntuacionMaxima)
             {
+
                 Debug.Log("Pasaste Nivel");
                 Time.timeScale = 0;
+                GameObject CanvasUI = GameObject.Find("CanvasUI");
+                foreach (Transform hijo in CanvasUI.transform)
+                {
+                    if (hijo.name == "SiguienteNivel")
+                    {
+                        hijo.gameObject.SetActive(true);
+                    }
+                }
             }
         }
     }
 
     private void GameOver()
     {
+        GameObject CanvasUI = GameObject.Find("CanvasUI");
+        foreach (Transform hijo in CanvasUI.transform)
+        {
+            if (hijo.name == "RestartLevel")
+            {
+                hijo.gameObject.SetActive(true);
+            }
+        }
+
         Debug.Log("Game Over");
         Time.timeScale = 0;
+
     }
 
     private void Poder()
@@ -78,11 +167,11 @@ public class PuntuacionManager : MonoBehaviour
         if (poder < PoderNecesario)
         {
             poder++;
-            TextoPoder.text = "Poder: " + poder;
+            ImagenBarraPoder.fillAmount = (float)poder / (float)PoderNecesario;
         }
         if (poder == PoderNecesario)
         {
-            TextoPoder.color = Color.yellow;
+            
             GameObject CanvasUI = GameObject.Find("CanvasUI");
             foreach (Transform hijo in CanvasUI.transform)
             {
@@ -93,11 +182,9 @@ public class PuntuacionManager : MonoBehaviour
             }
         }
     }
-
     public void ResetearPoder()
     {
         poder = 0;
-        TextoPoder.text = "Poder: " + poder;
-        TextoPoder.color = Color.black;
+        ImagenBarraPoder.fillAmount = 0f; ;
     }
 }

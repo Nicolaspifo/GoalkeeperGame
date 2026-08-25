@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 854a2a17aaacc3349be52e070d966cd1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - PlayerData: {fileID: 11400000, guid: 1b0511ff0c959f449b15bf432c234507, type: 2}
+  - CorazonPrefab: {fileID: 1494569138684308087, guid: a98666536aa08b444b98d9816d7a14d1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

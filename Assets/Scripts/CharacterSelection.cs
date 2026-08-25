@@ -8,9 +8,5 @@ public class CharacterSelection : MonoBehaviour
     {
         int id = int.Parse(gameObject.name);
         PlayerData.selectedCharacterId = id;
-        Debug.Log("Personaje seleccionado con ID: " + id);
     }
-
-
-
 }

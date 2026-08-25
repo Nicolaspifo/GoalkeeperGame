@@ -1,0 +1,17 @@
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\GAToUnityCallbacks.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\MacroEnd.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\MacroHeaderBegin.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\MacroSourceBegin.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAApplication.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAConfiguration.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGADebug.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAEvents.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAInput.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGASoftKeyboard.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGASoftKeyboardCallbacks.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGATypes.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAVersion.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGACallbacks.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAConfigurationCallbacks.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAKeyEventCallbacks.h
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAMotionEventCallbacks.h
