@@ -59,6 +59,13 @@ public class PuntuacionManager : MonoBehaviour
         CrearCorazones();
     }
 
+    public void ReiniciarNivel(GameObject Boton)
+    {
+        actualizarDatosNextLevel();
+        Boton.SetActive(false);
+        Time.timeScale = 1;
+    }
+
     private void Start()
     {
         ResetearPoder();
@@ -142,7 +149,15 @@ public class PuntuacionManager : MonoBehaviour
 
     private void GameOver()
     {
-        
+        GameObject CanvasUI = GameObject.Find("CanvasUI");
+        foreach (Transform hijo in CanvasUI.transform)
+        {
+            if (hijo.name == "RestartLevel")
+            {
+                hijo.gameObject.SetActive(true);
+            }
+        }
+
         Debug.Log("Game Over");
         Time.timeScale = 0;
 

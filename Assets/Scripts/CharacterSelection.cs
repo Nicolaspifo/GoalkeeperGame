@@ -10,7 +10,4 @@ public class CharacterSelection : MonoBehaviour
         PlayerData.selectedCharacterId = id;
         Debug.Log("Personaje seleccionado con ID: " + id);
     }
-
-
-
 }
