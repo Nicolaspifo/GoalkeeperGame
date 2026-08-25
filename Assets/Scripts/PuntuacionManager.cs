@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,7 +6,9 @@ public class PuntuacionManager : MonoBehaviour
 {
     private TMP_Text TextoPuntuacion;
     private TMP_Text TextoVida;
+    private GameObject ContenedorCorazones;
     private TMP_Text TextoPoder;
+    private GameObject BarraPoder;
 
     private int puntuacion = 0;
     private int vida = 5;
@@ -17,16 +20,18 @@ public class PuntuacionManager : MonoBehaviour
     private void Awake()
     {
         TextoPuntuacion = GameObject.Find("TextoPuntuacion").GetComponent<TMP_Text>();
-        TextoVida = GameObject.Find("TextoVida").GetComponent<TMP_Text>();
-        TextoPoder = GameObject.Find("TextoPoder").GetComponent<TMP_Text>();
+        //TextoVida = GameObject.Find("TextoVida").GetComponent<TMP_Text>();
+        //TextoPoder = GameObject.Find("TextoPoder").GetComponent<TMP_Text>();
+        BarraPoder = GameObject.Find("Power");
+        ContenedorCorazones = GameObject.Find("Health");
 
         TextoPuntuacion.text = "" + puntuacion;
-        TextoVida.text = "Vidas: " + vida;
-        TextoPoder.text = "Poder: " + poder;
+        //TextoVida.text = "Vidas: " + vida;
+        //TextoPoder.text = "Poder: " + poder;
     }
     public void ActualizarPuntuacion(string TagObjeto )
     {
-        if(TagObjeto == "ObjetoPositivo")
+        if (TagObjeto == "ObjetoPositivo")
         {
             PuntuacionPositiva();
         }
@@ -42,14 +47,27 @@ public class PuntuacionManager : MonoBehaviour
 
     private void PuntuacionNegativa()
     {
+        Transform parent = ContenedorCorazones.transform;
         if (vida > 0)
         {
             vida--;
-            TextoVida.text = "Vidas: " + vida;
             if (vida <= 0)
             {
                 GameOver();
             }
+            for (int i = parent.childCount - 1; i >= 0; i--)
+            {
+                Transform child = parent.GetChild(i);
+                Transform corazon = child.Find("Image");
+
+                if (corazon != null && corazon.gameObject.activeSelf)
+                {
+                    corazon.gameObject.SetActive(false);
+                    return;
+                }
+            }
+            //TextoVida.text = "Vidas: " + vida;
+            
         }
     }
 
@@ -97,7 +115,7 @@ public class PuntuacionManager : MonoBehaviour
     public void ResetearPoder()
     {
         poder = 0;
-        TextoPoder.text = "Poder: " + poder;
-        TextoPoder.color = Color.black;
+        //TextoPoder.text = "Poder: " + poder;
+        //TextoPoder.color = Color.black;
     }
 }
