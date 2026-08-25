@@ -1,6 +1,10 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using UIImage = UnityEngine.UI.Image;
 
 public class PuntuacionManager : MonoBehaviour
 {
@@ -8,13 +12,12 @@ public class PuntuacionManager : MonoBehaviour
     public PlayerData PlayerData;
 
     public GameObject CorazonPrefab;
-    public GameObject PoderPrefab;
-
     private TMP_Text TextoPuntuacion;
     private TMP_Text TextoVida;
     private GameObject ContenedorCorazones;
     private TMP_Text TextoPoder;
     private GameObject BarraPoder;
+    private UIImage ImagenBarraPoder;
 
     private int puntuacion;
     private int puntuacionMaxima;
@@ -28,7 +31,9 @@ public class PuntuacionManager : MonoBehaviour
     {
         // Inicializar referencias a los objetos de la UI
         TextoPuntuacion = GameObject.Find("TextoPuntuacion").GetComponent<TMP_Text>();
-        BarraPoder = GameObject.Find("Power");
+        BarraPoder = GameObject.Find("BarraPoder");
+        Transform parent = BarraPoder.transform;
+        ImagenBarraPoder = parent.GetChild(0).GetComponent<UIImage>();
         ContenedorCorazones = GameObject.Find("Health");
 
         //inicilizar las variables del juego
@@ -41,6 +46,11 @@ public class PuntuacionManager : MonoBehaviour
 
         // Crear corazones en la UI según la vida inicial
         CrarCorazones();
+    }
+
+    private void Start()
+    {
+        ResetearPoder();
     }
 
     private void CrarCorazones()
@@ -116,10 +126,11 @@ public class PuntuacionManager : MonoBehaviour
         if (poder < PoderNecesario)
         {
             poder++;
+            ImagenBarraPoder.fillAmount = (float)poder / (float)PoderNecesario;
         }
         if (poder == PoderNecesario)
         {
-            TextoPoder.color = Color.yellow;
+            
             GameObject CanvasUI = GameObject.Find("CanvasUI");
             foreach (Transform hijo in CanvasUI.transform)
             {
@@ -130,9 +141,9 @@ public class PuntuacionManager : MonoBehaviour
             }
         }
     }
-
     public void ResetearPoder()
     {
         poder = 0;
+        ImagenBarraPoder.fillAmount = 0f; ;
     }
 }

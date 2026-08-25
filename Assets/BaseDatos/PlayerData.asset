@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   selectedCharacterId: 1
   Vidas: 5
-  PuntuacionNecesaria: 20
-  PoderNecesario: 5
+  PuntuacionMaxima: 20
+  PoderMaximo: 2
   velocidad: 
