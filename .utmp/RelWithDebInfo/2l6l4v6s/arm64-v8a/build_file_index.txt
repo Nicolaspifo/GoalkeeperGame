@@ -1,0 +1,2 @@
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+D:\Nicolas\Trabajos UMNG\Semestre 10\Videojuegos\GoalkeeperGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

@@ -1,4 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using System;
 using TMPro;
 using UnityEngine;
@@ -53,10 +52,10 @@ public class PuntuacionManager : MonoBehaviour
         puntuacion = 0;
         puntuacionMaxima = PlayerData.PuntuacionActual;
         vida = PlayerData.Vidas;
-        poder = 0;
         PoderNecesario = PlayerData.PoderMaximo;
         TextoPuntuacion.text = "" + puntuacion;
         CrearCorazones();
+        ResetearPoder();
     }
 
     public void ReiniciarNivel(GameObject Boton)
